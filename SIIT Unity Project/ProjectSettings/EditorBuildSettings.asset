@@ -9,6 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Canvas.unity
     guid: aa23d4b3843f0cc48b54f3cae9526937
   - enabled: 1
+    path: Assets/Scenes/Training.unity
+    guid: fa96a1561c765a944964dbafd79c29d2
+  - enabled: 1
     path: Assets/Scenes/SIIT.unity
     guid: b658add7720af744cacb0d868d139c86
+  - enabled: 1
+    path: Assets/Scenes/Scene1.unity
+    guid: bb643a86bca368643b425aa1c84b7e0d
+  - enabled: 1
+    path: Assets/Scenes/Scene2.unity
+    guid: 7ffee8cca2dfdbf4992ea553cf4b64b3
+  - enabled: 1
+    path: Assets/Scenes/Scene3.unity
+    guid: 5330f278a65b3c845ab57ae4e2f1a46c
   m_configObjects: {}
