@@ -16,6 +16,7 @@ namespace NonVR
 
         private void Start()
         {
+            Cursor.visible = false;
             playerCameraTransform = GetComponentInChildren<Camera>().transform;
         }
 
@@ -37,10 +38,8 @@ namespace NonVR
                 }
 
                 Debug.DrawLine(cameraPosition, target, Color.green);
-                print("Pickup text: " + pickupText);
                 pickupText.gameObject.SetActive(true);
                 pickupText.text = "PICK UP: " + hit.transform.name;
-                print("Pickup status: " + pickupText.isActiveAndEnabled);
             }
             else
             {
@@ -57,20 +56,33 @@ namespace NonVR
         {
             if (holdingItem != null)
             {
+                print("Clicked drop");
                 Drop(holdingItem);
                 return;
             }
 
             // else, pickup if hovering over item
 
-            if (hoveringOverInteractable == null) return;
+            if (hoveringOverInteractable == null)
+            {
+                print("Clicked with nothing hovering");
+                return;
+            }
+            print("clicked with hovering");
             Pickup(hoveringOverInteractable);
         }
 
         private void Drop(IInteractable interactable)
         {
+            print("DROPPING");
             holdingItem = null;
-            interactable.Drop();
+            var cameraPosition = playerCameraTransform.position;
+            var cameraForward = playerCameraTransform.forward;
+            var dropRange = pickupRange / 2;
+            var target = cameraPosition + cameraForward * dropRange;
+            var dropHeight = 0.5f;
+            var dropPosition = new Vector3(target.x, target.y + dropHeight, target.z);
+            interactable.Drop(dropPosition);
         }
 
         private void Pickup(IInteractable interactable)
