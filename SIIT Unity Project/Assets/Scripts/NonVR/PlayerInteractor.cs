@@ -1,7 +1,5 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace NonVR
 {
@@ -22,6 +20,11 @@ namespace NonVR
 
         private void Update()
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Clicked();
+            }
+            
             var cameraPosition = playerCameraTransform.position;
             var cameraForward = playerCameraTransform.forward;
             var target = cameraPosition + cameraForward * pickupRange;
@@ -44,11 +47,6 @@ namespace NonVR
             else
             {
                 HitNothing(cameraPosition, target);
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                Clicked();
             }
         }
 
