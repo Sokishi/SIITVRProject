@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace NonVR
 {
@@ -7,13 +6,14 @@ namespace NonVR
     {
         [SerializeField] private float moveSpeed = 1f;
         [SerializeField] private float rotationSpeed = 10f;
-        private Camera playerCamera;
-        private CharacterController characterController;
 
         [SerializeField] private float zoomedFieldOfView = 50f;
-        private float originalFieldOfView;
         [SerializeField] private float zoomFieldOfViewTime = 0.25f;
-        private float zoomLerpTime = 0f;
+
+        private CharacterController characterController;
+        private Camera playerCamera;
+        private float originalFieldOfView;
+
         private void Awake()
         {
             playerCamera = GetComponentInChildren<Camera>();
@@ -48,14 +48,6 @@ namespace NonVR
                     .setOnUpdate(value => { playerCamera.fieldOfView = value; });            
             }
             
-        }
-
-        private void Move(Vector3 moveDirection)
-        {
-            var currentPosition = transform.position;
-            var newPosition = new Vector3(currentPosition.x + moveDirection.x, currentPosition.y + moveDirection.y,
-                currentPosition.z + moveDirection.z) * (moveSpeed * Time.deltaTime);
-            transform.position = newPosition;
         }
     }
 }
