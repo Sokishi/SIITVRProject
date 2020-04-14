@@ -14,6 +14,7 @@ namespace NonVR
         private float originalFieldOfView;
         [SerializeField] private float zoomFieldOfViewTime = 0.25f;
         private float zoomLerpTime = 0f;
+        
         private void Awake()
         {
             playerCamera = GetComponentInChildren<Camera>();
