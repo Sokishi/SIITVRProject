@@ -5,7 +5,7 @@ namespace NonVR
 {
     public class CarAssembler : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> parts;
+        [SerializeField] private List<GameObject> parts = new List<GameObject>();
         private int currentPartIndex;
 
         private void Awake()
@@ -21,7 +21,6 @@ namespace NonVR
                 {
                     parts[currentPartIndex].SetActive(true);
                     currentPartIndex++;
-
                 }
             }
         }
