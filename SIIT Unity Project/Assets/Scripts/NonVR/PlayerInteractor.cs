@@ -8,8 +8,8 @@ namespace NonVR
     public class PlayerInteractor : MonoBehaviour
     {
         [SerializeField] private float pickupRange = 1f;
-        [SerializeField] private TMP_Text pickupText;
-        [SerializeField] private Transform holdingTransform;
+        [SerializeField] private TMP_Text pickupText = null;
+        [SerializeField] private Transform holdingTransform = null;
         private Transform playerCameraTransform;
         private IInteractable hoveringOverInteractable;
         private IInteractable holdingItem;
