@@ -1,28 +1,49 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace NonVR
 {
     public class CarAssembler : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> parts = new List<GameObject>();
-        private int currentPartIndex;
-
+        private CarAssemblyPart[] parts;
+        private bool isComplete => IsAssemblyComplete();
+        
         private void Awake()
         {
-            currentPartIndex = 0;
+            parts = gameObject.GetComponentsInChildren<CarAssemblyPart>();
         }
 
-        private void Update()
+        private void OnEnable()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            GameEventSystem.current.onAssembledPart += AssembledPart;
+        }
+
+        private void AssembledPart()
+        {
+            if (isComplete)
             {
-                if (currentPartIndex < parts.Count)
-                {
-                    parts[currentPartIndex].SetActive(true);
-                    currentPartIndex++;
-                }
+                AssemblyComplete();
             }
+        }
+
+        private void OnDisable()
+        {
+            GameEventSystem.current.onAssembledPart -= AssembledPart;
+        }
+
+        private void AssemblyComplete()
+        {
+            // Start timer here
+            print("Assembly is complete");
+        }
+
+        private bool IsAssemblyComplete()
+        {
+            foreach (var part in parts)
+            {
+                if (!part.isComplete) return false;
+            }
+
+            return true;
         }
     }
 }

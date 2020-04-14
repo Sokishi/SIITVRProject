@@ -17,6 +17,7 @@ namespace NonVR
         [SerializeField] private bool isStaticPart = false; // non-movable part attached to the car for detection purposes
       
         private GameObject part;
+        public bool isComplete = false;
 
         private void Awake()
         {
@@ -45,6 +46,8 @@ namespace NonVR
             print(other.name + " entered area of: " + part.name);
             Destroy(other.gameObject);
             part.gameObject.SetActive(true);
+            isComplete = true;
+            GameEventSystem.current.AssembledPart();
         }
     }
 }
