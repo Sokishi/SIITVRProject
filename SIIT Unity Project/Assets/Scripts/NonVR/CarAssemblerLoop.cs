@@ -1,30 +1,46 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace NonVR
 {
     public class CarAssemblerLoop : MonoBehaviour
     {
-        [SerializeField] private int numberOfLoops;
-        private int currentLoop = 0;
+        [SerializeField] private int numberOfLoops = 1;
+        [SerializeField] private GameObject copyPrefab;
 
-        private void OnEnable()
+        private int currentLoop = 0;
+        private GameObject copiedObject;
+
+        private void Awake()
         {
-            GameEventSystem.Instance.onAssemblyComplete += AssemblyCompleted;
+            copiedObject = Instantiate(copyPrefab);
+            copiedObject.SetActive(false);
         }
 
-        private void OnDisable()
+        private void Start()
+        {
+            GameEventSystem.Instance.onAssemblyComplete += AssemblyCompleted;
+            GameEventSystem.Instance.StartAssemblyLoop();
+        }
+
+        private void OnDestroy()
         {
             GameEventSystem.Instance.onAssemblyComplete -= AssemblyCompleted;
         }
 
         private void AssemblyCompleted()
         {
-            // If more loops 
-            //   record time, increment currentLoop, reset loop + objects
-            // else
-            //   print time logs of previous loops (send event?)
-            throw new NotImplementedException();
+            if (currentLoop < numberOfLoops - 1)
+            {
+                currentLoop++;
+                // Record Time
+                // TODO: Fix this, currently it generates junk objects
+                copiedObject.SetActive(true);
+                GameEventSystem.Instance.StartAssemblyLoop();
+            }
+            else
+            {
+                GameEventSystem.Instance.StopAssemblyLoop();
+            }
         }
     }
 }
