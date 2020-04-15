@@ -43,11 +43,11 @@ namespace NonVR
             if (otherPart.partType != partType) return;
             
             // TODO: LeanTween animation to proper part position + rotation
-            print(other.name + " entered area of: " + part.name);
-            Destroy(other.gameObject);
+            print(otherPart.name + " entered area of: " + part.name);
+            Destroy(otherPart.gameObject);
             part.gameObject.SetActive(true);
             isComplete = true;
-            GameEventSystem.current.AssembledPart();
+            GameEventSystem.Instance.AssembledPart();
         }
     }
 }

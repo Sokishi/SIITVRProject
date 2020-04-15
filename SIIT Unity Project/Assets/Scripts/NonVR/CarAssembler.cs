@@ -1,20 +1,30 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace NonVR
 {
     public class CarAssembler : MonoBehaviour
     {
+        
         private CarAssemblyPart[] parts;
         private bool isComplete => IsAssemblyComplete();
         
+        // Wow don't do this
+        private GameObject copy;
+        
         private void Awake()
         {
-            parts = gameObject.GetComponentsInChildren<CarAssemblyPart>();
+            parts = GetComponentsInChildren<CarAssemblyPart>();
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            GameEventSystem.current.onAssembledPart += AssembledPart;
+            GameEventSystem.Instance.onAssembledPart += AssembledPart;
+        }
+
+        private void OnDestroy()
+        {
+            GameEventSystem.Instance.onAssembledPart -= AssembledPart;
         }
 
         private void AssembledPart()
@@ -25,15 +35,12 @@ namespace NonVR
             }
         }
 
-        private void OnDisable()
-        {
-            GameEventSystem.current.onAssembledPart -= AssembledPart;
-        }
-
         private void AssemblyComplete()
         {
             // Start timer here
             print("Assembly is complete");
+            GameEventSystem.Instance.AssemblyComplete();
+            Destroy(gameObject);
         }
 
         private bool IsAssemblyComplete()
