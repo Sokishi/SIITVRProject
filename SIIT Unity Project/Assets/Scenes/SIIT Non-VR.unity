@@ -1719,7 +1719,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0.99216, b: 0.9481132, a: 1}
-  m_Intensity: 2.62
+  m_Intensity: 3.43
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3072,6 +3072,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882310801847361307, guid: 3bdb90e0fd72c45d09ddb713cd96fb56,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1882310801847361308, guid: 3bdb90e0fd72c45d09ddb713cd96fb56,
         type: 3}
