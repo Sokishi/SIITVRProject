@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a68d241155c484f83205186782e1a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfLoops: 2
+  numberOfLoops: 3
   copyPrefab: {fileID: 1167701710}
 --- !u!4 &123646723
 Transform:
