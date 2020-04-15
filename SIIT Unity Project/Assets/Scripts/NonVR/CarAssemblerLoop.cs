@@ -12,8 +12,7 @@ namespace NonVR
 
         private void Awake()
         {
-            copiedObject = Instantiate(copyPrefab);
-            copiedObject.SetActive(false);
+            CopyAndHideRootObject(copyPrefab);
         }
 
         private void Start()
@@ -27,6 +26,12 @@ namespace NonVR
             GameEventSystem.Instance.onAssemblyComplete -= AssemblyCompleted;
         }
 
+        private void CopyAndHideRootObject(GameObject objToCopy)
+        {
+            copiedObject = Instantiate(objToCopy);
+            copiedObject.SetActive(false);
+        }
+
         private void AssemblyCompleted()
         {
             if (currentLoop < numberOfLoops - 1)
@@ -36,6 +41,7 @@ namespace NonVR
                 // TODO: Fix this, currently it generates junk objects
                 copiedObject.SetActive(true);
                 GameEventSystem.Instance.StartAssemblyLoop();
+                CopyAndHideRootObject(copiedObject);
             }
             else
             {
