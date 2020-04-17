@@ -26,6 +26,7 @@ public class AssemblyUi : MonoBehaviour, ISubscriber
 
     private bool UpdateLoopUi(AssemblySignals.UpdateLoopsSignal signal)
     {
+        if (loopText == null) return false;
         loopText.text = "Loop: " + signal.currentLoop + "/" + signal.totalLoops;
         return true;
     }
