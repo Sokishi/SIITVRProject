@@ -10,13 +10,13 @@ namespace NonVR
         private float timeValue;
         private List<float> timeHistoryList = new List<float>();
 
-        private void Start()
+        private void OnEnable()
         {
             GameEventSystem.Instance.onStartAssemblyLoop += StartTimer;
             GameEventSystem.Instance.onStopAssemblyLoop += StopTimer;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             GameEventSystem.Instance.onStartAssemblyLoop -= StartTimer;
             GameEventSystem.Instance.onStopAssemblyLoop -= StopTimer;

@@ -4,16 +4,43 @@
 public class GameEventSystem : MonoBehaviour
 {
     private static GameEventSystem _instance;
-    public static GameEventSystem Instance => _instance;
 
-    private void Awake()
+    public static GameEventSystem Instance
+    {
+        get
+        {
+            if (_instance != null) return _instance;
+
+            _instance = FindObjectOfType(typeof(GameEventSystem)) as GameEventSystem;
+
+            if (_instance == null)
+            {
+                Debug.LogError("There needs to be one active GameEventSystem script on a GameObject in your scene.");
+            }
+            else
+            {
+                _instance.Initialize();
+            }
+
+            return _instance;
+        }
+    }
+
+    private void Initialize()
     {
         if (_instance != null && _instance != this)
         {
             Destroy(gameObject);
-        } else {
+        }
+        else
+        {
             _instance = this;
         }
+    }
+
+    private void Awake()
+    {
+        Initialize();
     }
 
     public event Action onAssembledPart;
@@ -50,5 +77,11 @@ public class GameEventSystem : MonoBehaviour
     public void StopAssemblyLoop()
     {
         onStopAssemblyLoop?.Invoke();
+    }
+
+    public event Action<int, int> onUpdateLoopUi;
+    public void UpdateLoopUi(int currentLoop, int numberOfLoops)
+    {
+        onUpdateLoopUi?.Invoke(currentLoop, numberOfLoops);
     }
 }

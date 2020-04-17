@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace NonVR
 {
@@ -15,36 +16,43 @@ namespace NonVR
             CopyAndHideRootObject(copyPrefab);
         }
 
-        private void Start()
+        private void OnEnable()
         {
             GameEventSystem.Instance.onAssemblyComplete += AssemblyCompleted;
-            GameEventSystem.Instance.StartAssemblyLoop();
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             GameEventSystem.Instance.onAssemblyComplete -= AssemblyCompleted;
         }
 
+
+        private void Start()
+        {
+            GameEventSystem.Instance.StartAssemblyLoop();
+            GameEventSystem.Instance.UpdateLoopUi(currentLoop, numberOfLoops);
+        }
+
         private void CopyAndHideRootObject(GameObject objToCopy)
         {
-            copiedObject = Instantiate(objToCopy);
+            copiedObject = Instantiate(objToCopy, transform);
             copiedObject.SetActive(false);
-        }
+        } 
 
         private void AssemblyCompleted()
         {
             if (currentLoop < numberOfLoops - 1)
             {
                 currentLoop++;
-                // Record Time
-                // TODO: Fix this, currently it generates junk objects
                 copiedObject.SetActive(true);
                 GameEventSystem.Instance.StartAssemblyLoop();
                 CopyAndHideRootObject(copiedObject);
+                GameEventSystem.Instance.UpdateLoopUi(currentLoop, numberOfLoops);
             }
             else
             {
+                currentLoop++;
+                GameEventSystem.Instance.UpdateLoopUi(currentLoop, numberOfLoops);
                 GameEventSystem.Instance.StopAssemblyLoop();
             }
         }

@@ -17,12 +17,12 @@ namespace NonVR
             parts = GetComponentsInChildren<CarAssemblyPart>();
         }
 
-        private void Start()
+        private void OnEnable()
         {
             GameEventSystem.Instance.onAssembledPart += AssembledPart;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             GameEventSystem.Instance.onAssembledPart -= AssembledPart;
         }
@@ -40,7 +40,7 @@ namespace NonVR
             // Start timer here
             print("Assembly is complete");
             GameEventSystem.Instance.AssemblyComplete();
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
 
         private bool IsAssemblyComplete()
