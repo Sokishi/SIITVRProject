@@ -114,7 +114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1939745697803660906}
   m_Layer: 0
-  m_Name: Assembly Root 2 Wheels
+  m_Name: Assembly Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
