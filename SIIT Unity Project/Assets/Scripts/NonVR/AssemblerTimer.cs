@@ -1,36 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using echo17.Signaler.Core;
+using Signals;
 using UnityEngine;
 
 namespace NonVR
 {
-    public class AssemblerTimer : MonoBehaviour
+    public class AssemblerTimer : MonoBehaviour, IBroadcaster, ISubscriber
     {
         private bool isTimerOn;
         private float timeValue;
-        private List<float> timeHistoryList = new List<float>();
+        private readonly List<float> timeHistoryList = new List<float>();
 
-        private void Start()
+        private AssemblySignals.UpdateTimeSignal updateTimeSignal;
+        private AssemblySignals.UpdateRecordsSignal updateRecordsSignal;
+
+        private void Awake()
         {
-            GameEventSystem.Instance.onStartAssemblyLoop += StartTimer;
-            GameEventSystem.Instance.onStopAssemblyLoop += StopTimer;
-        }
-
-        private void OnDestroy()
-        {
-            GameEventSystem.Instance.onStartAssemblyLoop -= StartTimer;
-            GameEventSystem.Instance.onStopAssemblyLoop -= StopTimer;
-
+            Signaler.Instance.Subscribe<AssemblySignals.StartAssemblyLoopSignal>(this, StartTimer);
+            Signaler.Instance.Subscribe<AssemblySignals.StopAssemblyLoopSignal>(this, StopTimer);
         }
 
         private void Update()
         {
             if (!isTimerOn) return;
             timeValue += Time.deltaTime;
-            GameEventSystem.Instance.UpdateAssemblyUi(null, null, timeValue);
+            updateTimeSignal.time = timeValue;
+            Signaler.Instance.Broadcast(this, updateTimeSignal);
         }
 
-        private void StartTimer()
+        private bool StartTimer(AssemblySignals.StartAssemblyLoopSignal signal)
         {
             // If history is empty, don't record time.
             // If history is not empty, add history time log
@@ -41,18 +40,21 @@ namespace NonVR
 
             timeValue = 0;
             isTimerOn = true;
+            return true;
         }
 
-        private void StopTimer()
+        private bool StopTimer(AssemblySignals.StopAssemblyLoopSignal signal)
         {
             isTimerOn = false;
             RecordTime();
+            return true;
         }
 
         private void RecordTime()
         {
             timeHistoryList.Add(timeValue);
-            GameEventSystem.Instance.UpdateAssemblyLogsUi(timeValue);
+            updateRecordsSignal.timeRecords = timeHistoryList;
+            Signaler.Instance.Broadcast(this, updateRecordsSignal);
         }
     }
 }
