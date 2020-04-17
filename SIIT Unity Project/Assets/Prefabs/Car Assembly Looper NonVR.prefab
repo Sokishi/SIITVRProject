@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 3
   isStaticPart: 0
-  isComplete: 0
+  isAssembled: 0
 --- !u!114 &1939745697419758432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 3
   isStaticPart: 0
-  isComplete: 0
+  isAssembled: 0
 --- !u!114 &8089310199984210618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 3
   isStaticPart: 0
-  isComplete: 0
+  isAssembled: 0
 --- !u!1 &1939745696775859108
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1939745697890996372}
+  - {fileID: 6355290826473237288}
   - {fileID: 696869316501553149}
   - {fileID: 696869317665521927}
   - {fileID: 4518304320546001649}
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 2
   isStaticPart: 0
-  isComplete: 0
+  isAssembled: 0
 --- !u!114 &2529851018182906997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partType: 3
   isStaticPart: 0
-  isComplete: 0
+  isAssembled: 0
 --- !u!1001 &714470867023366003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -514,6 +514,91 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3311455568858658055}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3335695155246792621
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1939745697803660906}
+    m_Modifications:
+    - target: {fileID: 8536645969532785796, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_Name
+      value: Car Assembly Wheels Step Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0025911331
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.1649551
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.16269302
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785798, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: requirements.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536645969532785798, guid: 0fd8175114e2e496eb233ef5100284cd,
+        type: 3}
+      propertyPath: requirements.Array.data[1]
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0fd8175114e2e496eb233ef5100284cd, type: 3}
+--- !u!4 &6355290826473237288 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8536645969532785797, guid: 0fd8175114e2e496eb233ef5100284cd,
+    type: 3}
+  m_PrefabInstance: {fileID: 3335695155246792621}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7407245326963907349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -594,79 +679,4 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5138293683213990547, guid: 3b2f1b3b50ef60a489fb467c9ec7a89a,
     type: 3}
   m_PrefabInstance: {fileID: 7407245326963907349}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &7823630138681525265
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1939745697803660906}
-    m_Modifications:
-    - target: {fileID: 8536645969532785796, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_Name
-      value: Car Assembly Wheels Step Up
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.0025911331
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.1649551
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.16269302
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 61b719dba413544048993c24989a3a7c, type: 3}
---- !u!4 &1939745697890996372 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8536645969532785797, guid: 61b719dba413544048993c24989a3a7c,
-    type: 3}
-  m_PrefabInstance: {fileID: 7823630138681525265}
   m_PrefabAsset: {fileID: 0}
