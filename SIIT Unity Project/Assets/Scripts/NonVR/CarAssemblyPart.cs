@@ -18,7 +18,7 @@ namespace NonVR
         [SerializeField] private PartType partType;
         [SerializeField] private bool isStaticPart = false; // non-movable part attached to the car for detection purposes
       
-        public bool isComplete = false;
+        [HideInInspector] public bool isComplete = false;
 
         private GameObject part;
         private AssemblySignals.AssembledPartSignal assembledPartSignal = new AssemblySignals.AssembledPartSignal();
@@ -48,6 +48,17 @@ namespace NonVR
             
             // TODO: LeanTween animation to proper part position + rotation
             print(otherPart.name + " entered area of: " + part.name);
+            
+            // Disable triggers
+            var colliders = GetComponentsInChildren<Collider>();
+            foreach (var col in colliders)
+            {
+                if (col.isTrigger)
+                {
+                    col.enabled = false;
+                }
+            }
+            
             Destroy(otherPart.gameObject);
             part.gameObject.SetActive(true);
             isComplete = true;
