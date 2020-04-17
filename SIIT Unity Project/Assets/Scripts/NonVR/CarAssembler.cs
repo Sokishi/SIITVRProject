@@ -108,7 +108,9 @@ namespace NonVR
         private void AssemblyComplete()
         {
             Signaler.Instance.Broadcast(this, assemblyCompleteSignal);
-            Destroy(transform.parent.gameObject);
+            // Destroy(gameObject);
+            gameObject.SetActive(false);
+            enabled = false;
         }
 
         private bool IsAssemblyComplete()

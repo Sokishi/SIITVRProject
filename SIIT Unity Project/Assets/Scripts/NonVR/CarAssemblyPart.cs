@@ -51,7 +51,10 @@ namespace NonVR
 
             // TODO: LeanTween animation to proper part position + rotation
             DisableColliders();
-            Destroy(otherPart.gameObject);
+            otherPart.gameObject.SetActive(false);
+            var meshRenderer = otherPart.GetComponentInChildren<MeshRenderer>();
+            if (meshRenderer) meshRenderer.enabled = false;
+            
             part.gameObject.SetActive(true);
             isAssembled = true;
             Signaler.Instance.Broadcast(this, assembledPartSignal);
