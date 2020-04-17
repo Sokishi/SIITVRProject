@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using echo17.Signaler.Core;
+using Signals;
+using UnityEngine;
 
 namespace NonVR
 {
-    public class CarAssemblyPart : MonoBehaviour
+    public class CarAssemblyPart : MonoBehaviour, IBroadcaster
     {
         private enum PartType
         {
@@ -16,9 +18,11 @@ namespace NonVR
         [SerializeField] private PartType partType;
         [SerializeField] private bool isStaticPart = false; // non-movable part attached to the car for detection purposes
       
-        private GameObject part;
         public bool isComplete = false;
 
+        private GameObject part;
+        private AssemblySignals.AssembledPartSignal assembledPartSignal = new AssemblySignals.AssembledPartSignal();
+        
         private void Awake()
         {
             // TODO: Don't do this. This is a terrible way
@@ -47,7 +51,7 @@ namespace NonVR
             Destroy(otherPart.gameObject);
             part.gameObject.SetActive(true);
             isComplete = true;
-            GameEventSystem.Instance.AssembledPart();
+            Signaler.Instance.Broadcast(this, assembledPartSignal);
         }
     }
 }

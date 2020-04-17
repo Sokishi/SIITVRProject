@@ -1,17 +1,19 @@
-﻿using System;
+﻿using echo17.Signaler.Core;
+using Signals;
 using UnityEngine;
 
 namespace NonVR
 {
-    public class CarAssembler : MonoBehaviour
+    public class CarAssembler : MonoBehaviour, IBroadcaster, ISubscriber
     {
-        
         private CarAssemblyPart[] parts;
         private bool isComplete => IsAssemblyComplete();
-        
+
         // Wow don't do this
         private GameObject copy;
-        
+        private readonly AssemblySignals.AssemblyCompleteSignal assemblyCompleteSignal = new AssemblySignals.AssemblyCompleteSignal();
+        private MessageSubscription<AssemblySignals.AssembledPartSignal> assembledPartSignalSubscription;
+
         private void Awake()
         {
             parts = GetComponentsInChildren<CarAssemblyPart>();
@@ -19,27 +21,38 @@ namespace NonVR
 
         private void OnEnable()
         {
-            GameEventSystem.Instance.onAssembledPart += AssembledPart;
+            assembledPartSignalSubscription = Signaler.Instance.Subscribe<AssemblySignals.AssembledPartSignal>(this, AssembledPart);
         }
 
         private void OnDisable()
         {
-            GameEventSystem.Instance.onAssembledPart -= AssembledPart;
+            UnSubscribeSignal();
         }
 
-        private void AssembledPart()
+        private void OnDestroy()
         {
-            if (isComplete)
-            {
-                AssemblyComplete();
-            }
+            UnSubscribeSignal();
         }
 
+        private void UnSubscribeSignal()
+        {
+            assembledPartSignalSubscription.UnSubscribe();
+        }
+
+        private bool AssembledPart(AssemblySignals.AssembledPartSignal signal)
+        {
+            if (!enabled)
+                return false;
+
+            if (isComplete)
+                AssemblyComplete();
+
+            return true;
+        }
+        
         private void AssemblyComplete()
         {
-            // Start timer here
-            print("Assembly is complete");
-            GameEventSystem.Instance.AssemblyComplete();
+            Signaler.Instance.Broadcast(this, assemblyCompleteSignal);
             Destroy(transform.parent.gameObject);
         }
 

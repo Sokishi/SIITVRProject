@@ -1,9 +1,10 @@
-﻿using System;
+﻿using echo17.Signaler.Core;
+using Signals;
 using UnityEngine;
 
 namespace NonVR
 {
-    public class CarAssemblerLoop : MonoBehaviour
+    public class CarAssemblerLoop : MonoBehaviour, IBroadcaster, ISubscriber
     {
         [SerializeField] private int numberOfLoops = 1;
         [SerializeField] private GameObject copyPrefab;
@@ -11,50 +12,58 @@ namespace NonVR
         private int currentLoop = 0;
         private GameObject copiedObject;
 
+        private AssemblySignals.UpdateLoopsSignal updateLoopsSignal;
+
+        private readonly AssemblySignals.StartAssemblyLoopSignal startAssemblyLoopSignal =
+            new AssemblySignals.StartAssemblyLoopSignal();
+
+        private readonly AssemblySignals.StopAssemblyLoopSignal stopAssemblyLoopSignal =
+            new AssemblySignals.StopAssemblyLoopSignal();
+
         private void Awake()
         {
             CopyAndHideRootObject(copyPrefab);
+            Signaler.Instance.Subscribe<AssemblySignals.AssemblyCompleteSignal>(this, AssemblyCompleted);
         }
-
-        private void OnEnable()
-        {
-            GameEventSystem.Instance.onAssemblyComplete += AssemblyCompleted;
-        }
-
-        private void OnDisable()
-        {
-            GameEventSystem.Instance.onAssemblyComplete -= AssemblyCompleted;
-        }
-
 
         private void Start()
         {
-            GameEventSystem.Instance.StartAssemblyLoop();
-            GameEventSystem.Instance.UpdateLoopUi(currentLoop, numberOfLoops);
+            var startLoopSignal = new AssemblySignals.StartAssemblyLoopSignal();
+            Signaler.Instance.Broadcast(this, startLoopSignal);
+            BroadcastUpdateLoops();
         }
 
         private void CopyAndHideRootObject(GameObject objToCopy)
         {
             copiedObject = Instantiate(objToCopy, transform);
             copiedObject.SetActive(false);
-        } 
+        }
 
-        private void AssemblyCompleted()
+        private bool AssemblyCompleted(AssemblySignals.AssemblyCompleteSignal signal)
         {
             if (currentLoop < numberOfLoops - 1)
             {
                 currentLoop++;
                 copiedObject.SetActive(true);
-                GameEventSystem.Instance.StartAssemblyLoop();
+                Signaler.Instance.Broadcast(this, startAssemblyLoopSignal);
                 CopyAndHideRootObject(copiedObject);
-                GameEventSystem.Instance.UpdateLoopUi(currentLoop, numberOfLoops);
+                BroadcastUpdateLoops();
             }
             else
             {
                 currentLoop++;
-                GameEventSystem.Instance.UpdateLoopUi(currentLoop, numberOfLoops);
-                GameEventSystem.Instance.StopAssemblyLoop();
+                BroadcastUpdateLoops();
+                Signaler.Instance.Broadcast(this, stopAssemblyLoopSignal);
             }
+
+            return true;
+        }
+
+        private void BroadcastUpdateLoops()
+        {
+            updateLoopsSignal.currentLoop = currentLoop;
+            updateLoopsSignal.totalLoops = numberOfLoops;
+            Signaler.Instance.Broadcast(this, updateLoopsSignal);
         }
     }
 }

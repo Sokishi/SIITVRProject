@@ -1,47 +1,38 @@
-﻿using TMPro;
+﻿using System;
+using System.Collections.Generic;
+using echo17.Signaler.Core;
+using Signals;
+using TMPro;
 using UnityEngine;
 
-public class AssemblyUi : MonoBehaviour
+public class AssemblyUi : MonoBehaviour, ISubscriber
 {
     [SerializeField] private TMP_Text loopText;
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private TMP_Text timeLogText;
 
-    private void OnEnable()
+    private void Awake()
     {
-        GameEventSystem.Instance.onUpdateAssemblyUi += UpdateUi;
-        GameEventSystem.Instance.onUpdateAssemblyLogsUi += UpdateTimeLogsUi;
-        GameEventSystem.Instance.onUpdateLoopUi += UpdateLoopUi;
-    }
-
-    private void UpdateLoopUi(int currentLoop, int totalLoops)
-    {
-        loopText.text = "Loop: " + currentLoop + "/" + totalLoops;
+        Signaler.Instance.Subscribe<AssemblySignals.UpdateTimeSignal>(this, UpdateTimeUi);
+        Signaler.Instance.Subscribe<AssemblySignals.UpdateLoopsSignal>(this, UpdateLoopUi);
+        Signaler.Instance.Subscribe<AssemblySignals.UpdateRecordsSignal>(this, UpdateTimeRecordsUi);
     }
     
-    private void OnDisable()
+    private bool UpdateTimeUi(AssemblySignals.UpdateTimeSignal signal)
     {
-        GameEventSystem.Instance.onUpdateAssemblyUi -= UpdateUi;
-        GameEventSystem.Instance.onUpdateAssemblyLogsUi -= UpdateTimeLogsUi;
-        GameEventSystem.Instance.onUpdateLoopUi -= UpdateLoopUi;
+        timeText.text = "Time: " + signal.time.ToString("F2");
+        return true;
     }
 
-    private void UpdateUi(int? currentLoop, int? totalLoops, float? time)
+    private bool UpdateLoopUi(AssemblySignals.UpdateLoopsSignal signal)
     {
-        if (currentLoop != null && totalLoops != null)
-        {
-            loopText.text = "Loops: " + currentLoop + "/" + totalLoops;
-        }
-
-        if (time != null)
-        {
-            timeText.text = "Time: " + time?.ToString("F2");
-            ;
-        }
+        loopText.text = "Loop: " + signal.currentLoop + "/" + signal.totalLoops;
+        return true;
     }
 
-    private void UpdateTimeLogsUi(float time)
+    private bool UpdateTimeRecordsUi(AssemblySignals.UpdateRecordsSignal signal)
     {
-        timeLogText.text += "\n" + time;
+        timeLogText.text = "Records: " + "\n" + string.Join("\n", signal.timeRecords);
+        return true;
     }
 }
