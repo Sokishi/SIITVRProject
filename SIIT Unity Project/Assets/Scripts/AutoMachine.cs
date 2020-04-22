@@ -38,23 +38,39 @@ public class AutoMachine : MonoBehaviour, IBroadcaster
 
     private void OnTriggerEnter(Collider other)
     {
-        var otherAssembler = other.GetComponentInParent<CarAssembler>();
-        if (otherAssembler == null) return;
-        if (!otherAssembler.AreAllPartsAssembled) return; // Only allow fully assembled assemblers
-        var otherRigidbody = other.GetComponentInParent<Rigidbody>();
-        if (otherRigidbody == null) return;
-        if (otherRigidbody.isKinematic) return; // Physics should be enabled on the object, otherwise ignore this object
-        if (otherRigidbody.velocity != Vector3.zero) return; // Other rigidbody should not be moving
-        if (partOnAutoMachine != null) return; // Only 1 assembler should be on the automachine
-        partOnAutoMachine = other.transform;
-        currentTime = secondsToComplete;
+        StartAutoMachineIfProperPart(other.transform);
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        StartAutoMachineIfProperPart(other.transform);
+    }
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.transform != partOnAutoMachine) return;
         partOnAutoMachine = null;
         ResetTime();
+    }
+
+    private void StartAutoMachineIfProperPart(Transform other)
+    {
+        if (!IsOtherPartAutoMachinable(other)) return;
+        partOnAutoMachine = other;
+        currentTime = secondsToComplete;
+    }
+
+    private bool IsOtherPartAutoMachinable(Component other)
+    {
+        if (partOnAutoMachine != null) return false; // Only 1 assembler should be on the automachine
+        var otherAssembler = other.GetComponentInParent<CarAssembler>();
+        if (otherAssembler == null) return false;
+        if (!otherAssembler.AreAllPartsAssembled) return false; // Only allow fully assembled assemblers
+        var otherRigidbody = other.GetComponentInParent<Rigidbody>();
+        if (otherRigidbody == null) return false;
+        if (otherRigidbody.isKinematic) return false; // Physics should be enabled on the object, otherwise ignore this object
+        if (otherRigidbody.velocity != Vector3.zero) return false; // Other rigidbody should not be moving
+        return true;
     }
 
     private void ResetTime()

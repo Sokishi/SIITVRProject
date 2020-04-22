@@ -4,6 +4,7 @@ using System.Linq;
 using echo17.Signaler.Core;
 using Signals;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 namespace NonVR
 {
@@ -131,15 +132,17 @@ namespace NonVR
                     // Enable automachine component
                     if (autoMachine) autoMachine.enabled = true;
                     var collider = GetComponent<Collider>();
-                    var rigidbody = GetComponent<Rigidbody>();
                     if (collider) collider.enabled = true;
+                    var rigidbody = GetComponent<Rigidbody>();
+                    if (rigidbody) rigidbody.isKinematic = false;
+                    var throwable = GetComponent<Throwable>();
+                    if (throwable) throwable.enabled = true;
                     var childColliders = GetComponentsInChildren<Collider>();
                     foreach (var childCollider in childColliders)
                     {
                         if (childCollider == collider) continue;
                         childCollider.enabled = false;
                     }
-                    if (rigidbody) rigidbody.isKinematic = false;
                     break;
                 case AssemblyState.Completed:
                     AssemblyComplete();

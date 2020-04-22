@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using echo17.Signaler.Core;
 
 namespace Signals
 {
