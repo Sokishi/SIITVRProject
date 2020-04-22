@@ -23,6 +23,7 @@ public class AutoMachine : MonoBehaviour, IBroadcaster
         {
             currentTime -= Time.deltaTime; // tick down time
             updateTimeSignal.time = currentTime;
+            print(currentTime);
             Signaler.Instance.Broadcast(this, updateTimeSignal);
             
             if (currentTime < 0) 
