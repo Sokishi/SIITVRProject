@@ -31,7 +31,8 @@ namespace NonVR
         private void Awake()
         {
             // TODO: Don't do this. This is a terrible way
-            part = transform.GetChild(0).gameObject;
+            var partTransform = transform;
+            part = partTransform.childCount >= 1 ? partTransform.GetChild(0).gameObject : partTransform.gameObject;
         }
 
         private void OnTriggerEnter(Collider other)
