@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using echo17.Signaler.Core;
 using Signals;
@@ -9,18 +10,32 @@ namespace NonVR
     public class CarAssembler : MonoBehaviour, IBroadcaster, ISubscriber
     {
         [SerializeField] private List<CarAssemblyPart.PartType> requirements = new List<CarAssemblyPart.PartType>();
+        [SerializeField] private AutoMachine autoMachine;
+
+        public bool AreAllPartsAssembled => IsEveryPartAssembled();
+        
         private int currentRequirementIndex;
         private CarAssemblyPart[] parts;
-        private bool isComplete => IsAssemblyComplete();
         // Wow don't do this
         private GameObject copy;
         private readonly AssemblySignals.AssemblyCompleteSignal assemblyCompleteSignal =
             new AssemblySignals.AssemblyCompleteSignal();
         private MessageSubscription<AssemblySignals.AssembledPartSignal> assembledPartSignalSubscription;
+        private MessageSubscription<AssemblySignals.AutoMachineCompleted> autoMachineSignalSubscription;
         private CarAssemblyPart.PartType currentPartRequirement => requirements[currentRequirementIndex];
+
+        enum AssemblyState
+        {
+            Assembling,
+            AutoMachining,
+            Completed
+        }
+
+        private AssemblyState currentState;
         
         private void Awake()
         {
+            currentState = AssemblyState.Assembling;
             parts = GetComponentsInChildren<CarAssemblyPart>();
             ValidateRequirements();
 
@@ -58,6 +73,15 @@ namespace NonVR
         {
             assembledPartSignalSubscription =
                 Signaler.Instance.Subscribe<AssemblySignals.AssembledPartSignal>(this, AssembledPart);
+            autoMachineSignalSubscription =
+                Signaler.Instance.Subscribe<AssemblySignals.AutoMachineCompleted>(this, AutoMachineCompleted);
+        }
+
+        private bool AutoMachineCompleted(AssemblySignals.AutoMachineCompleted signal)
+        {
+            autoMachine.enabled = false;
+            SetState(AssemblyState.Completed);
+            return true;
         }
 
         private void OnDisable()
@@ -73,6 +97,7 @@ namespace NonVR
         private void UnSubscribeSignal()
         {
             assembledPartSignalSubscription.UnSubscribe();
+            autoMachineSignalSubscription.UnSubscribe();
         }
 
         private bool AssembledPart(AssemblySignals.AssembledPartSignal signal)
@@ -85,10 +110,43 @@ namespace NonVR
             // if they have, move to next requirement
             ProgressRequirementIfCompleted();
 
-            if (isComplete)
-                AssemblyComplete();
+            if (AreAllPartsAssembled)
+            {
+                // Move to next stage of assembly
+                SetState(AssemblyState.AutoMachining);
+            }
 
             return true;
+        }
+
+        private void SetState(AssemblyState state)
+        {
+            currentState = state;
+
+            switch (currentState)
+            {
+                case AssemblyState.Assembling:
+                    break;
+                case AssemblyState.AutoMachining:
+                    // Enable automachine component
+                    if (autoMachine) autoMachine.enabled = true;
+                    var collider = GetComponent<Collider>();
+                    var rigidbody = GetComponent<Rigidbody>();
+                    if (collider) collider.enabled = true;
+                    var childColliders = GetComponentsInChildren<Collider>();
+                    foreach (var childCollider in childColliders)
+                    {
+                        if (childCollider == collider) continue;
+                        childCollider.enabled = false;
+                    }
+                    if (rigidbody) rigidbody.isKinematic = false;
+                    break;
+                case AssemblyState.Completed:
+                    AssemblyComplete();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private void ProgressRequirementIfCompleted()
@@ -113,7 +171,7 @@ namespace NonVR
             enabled = false;
         }
 
-        private bool IsAssemblyComplete()
+        private bool IsEveryPartAssembled()
         {
             foreach (var part in parts)
             {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using echo17.Signaler.Core;
 
 namespace Signals
 {
@@ -35,6 +36,15 @@ namespace Signals
         {
             public int currentLoop;
             public int totalLoops;
+        }
+
+        public struct AutoMachineCompleted
+        {
+        }
+
+        public struct UpdateAutoMachineProgressTime
+        {
+            public float time;
         }
     }
 }

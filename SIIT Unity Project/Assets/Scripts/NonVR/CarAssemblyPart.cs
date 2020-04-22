@@ -26,7 +26,7 @@ namespace NonVR
         private readonly AssemblySignals.AssembledPartSignal assembledPartSignal =
             new AssemblySignals.AssembledPartSignal();
 
-        private CarAssembler assembler;
+        public CarAssembler Assembler { get; private set; }
 
         private void Awake()
         {
@@ -47,7 +47,7 @@ namespace NonVR
             if (otherPart == null) return;
             if (otherPart.partType != partType) return;
 
-            if (!assembler.CanAssemblePart(partType))
+            if (!Assembler.CanAssemblePart(partType))
                 return;
 
             // TODO: LeanTween animation to proper part position + rotation
@@ -75,7 +75,7 @@ namespace NonVR
 
         public void SetAssembler(CarAssembler carAssembler)
         {
-            assembler = carAssembler;
+            Assembler = carAssembler;
         }
     }
 }
