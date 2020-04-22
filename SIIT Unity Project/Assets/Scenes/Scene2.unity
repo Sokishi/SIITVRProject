@@ -141,27 +141,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4493585093827132993, guid: f16fbb733aa2f6344ada2009509f6c2b, type: 3}
---- !u!1 &251936632 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6660185531624398391, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
-    type: 3}
-  m_PrefabInstance: {fileID: 5736217047172344040}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &251936634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 251936632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4deecfd12fb6c41b4881b4f446434348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  partType: 0
-  isStaticPart: 1
-  isAssembled: 0
 --- !u!1001 &346808759
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -830,27 +809,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d11695e43d89ff24bb36886a4c039c14, type: 3}
---- !u!1 &1538158947 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6660185532593162266, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
-    type: 3}
-  m_PrefabInstance: {fileID: 5736217047172344040}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1538158949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538158947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4deecfd12fb6c41b4881b4f446434348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  partType: 1
-  isStaticPart: 1
-  isAssembled: 0
 --- !u!1001 &1553027051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1359,27 +1317,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1763440979}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1792483194 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6660185531731895629, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
-    type: 3}
-  m_PrefabInstance: {fileID: 5736217047172344040}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1792483196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1792483194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4deecfd12fb6c41b4881b4f446434348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  partType: 4
-  isStaticPart: 1
-  isAssembled: 0
 --- !u!1001 &1821431886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1455,27 +1392,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1821431886}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1853074896 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8295969384212390127, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
-    type: 3}
-  m_PrefabInstance: {fileID: 5736217047172344040}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1853074898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1853074896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4deecfd12fb6c41b4881b4f446434348, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  partType: 4
-  isStaticPart: 1
-  isAssembled: 0
 --- !u!1001 &2014805845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1602,87 +1518,72 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2017037117}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &5736217047172344040
+--- !u!1001 &3715040480851568587
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6660185531405459162, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
-        type: 3}
-      propertyPath: requirements.Array.data[0]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6660185531405459162, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
-        type: 3}
-      propertyPath: requirements.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159593, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
-        type: 3}
-      propertyPath: m_Name
-      value: Car Assembly Looper Scene 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0442
       objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.9504
       objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -0.252
       objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6660185532554159595, guid: 602a5bbcbe2655b4c84fe7e215f89eb7,
+    - target: {fileID: 3715040481070432816, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3032603924763727372, guid: 602a5bbcbe2655b4c84fe7e215f89eb7, type: 3}
-    - {fileID: 3032603925224512469, guid: 602a5bbcbe2655b4c84fe7e215f89eb7, type: 3}
-    - {fileID: 4805783950985878632, guid: 602a5bbcbe2655b4c84fe7e215f89eb7, type: 3}
-    - {fileID: 4805783951761531556, guid: 602a5bbcbe2655b4c84fe7e215f89eb7, type: 3}
-    - {fileID: 3032603923957289963, guid: 602a5bbcbe2655b4c84fe7e215f89eb7, type: 3}
-  m_SourcePrefab: {fileID: 100100000, guid: 602a5bbcbe2655b4c84fe7e215f89eb7, type: 3}
+    - target: {fileID: 3715040481070432819, guid: 306520c40b4e40e4ba741e93c4fa1cd8,
+        type: 3}
+      propertyPath: m_Name
+      value: Car Assembly Looper Scene 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 306520c40b4e40e4ba741e93c4fa1cd8, type: 3}
