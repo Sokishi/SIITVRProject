@@ -1,4 +1,5 @@
-﻿using echo17.Signaler.Core;
+﻿using System.Collections;
+using echo17.Signaler.Core;
 using Signals;
 using UnityEngine;
 
@@ -46,13 +47,8 @@ namespace NonVR
                         Destroy(child.gameObject);
                     }
                 }
-                var newAssemblyRoot = Instantiate(prefabToLoop, transform);
-                newAssemblyRoot.transform.position = spawnPoint.position;
-                newAssemblyRoot.SetActive(true);
-                var carAssembler = newAssemblyRoot.GetComponentInChildren<CarAssembler>();
-                carAssembler.autoMachine = autoMachine;
-                Signaler.Instance.Broadcast(this, startAssemblyLoopSignal);
-                BroadcastUpdateLoops();
+
+                StartCoroutine(SpawnNewLoop());
             }
             else
             {
@@ -62,6 +58,18 @@ namespace NonVR
             }
 
             return true;
+        }
+
+        private IEnumerator SpawnNewLoop()
+        {
+            yield return new WaitForEndOfFrame();
+            var newAssemblyRoot = Instantiate(prefabToLoop, transform);
+            newAssemblyRoot.transform.position = spawnPoint.position;
+            newAssemblyRoot.SetActive(true);
+            var carAssembler = newAssemblyRoot.GetComponentInChildren<CarAssembler>();
+            carAssembler.autoMachine = autoMachine;
+            Signaler.Instance.Broadcast(this, startAssemblyLoopSignal);
+            BroadcastUpdateLoops();
         }
 
         private void BroadcastUpdateLoops()
