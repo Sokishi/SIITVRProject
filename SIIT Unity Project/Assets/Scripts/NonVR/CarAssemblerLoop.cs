@@ -7,22 +7,19 @@ namespace NonVR
     public class CarAssemblerLoop : MonoBehaviour, IBroadcaster, ISubscriber
     {
         [SerializeField] private int numberOfLoops = 1;
-        [SerializeField] private GameObject copyPrefab;
-
+        [SerializeField] private GameObject prefabToLoop;
+        [SerializeField] private Transform spawnPoint;
+        
         private int currentLoop = 0;
-        private GameObject copiedObject;
 
         private AssemblySignals.UpdateLoopsSignal updateLoopsSignal;
-
         private readonly AssemblySignals.StartAssemblyLoopSignal startAssemblyLoopSignal =
             new AssemblySignals.StartAssemblyLoopSignal();
-
         private readonly AssemblySignals.StopAssemblyLoopSignal stopAssemblyLoopSignal =
             new AssemblySignals.StopAssemblyLoopSignal();
 
         private void Awake()
         {
-            CopyAndHideRootObject(copyPrefab);
             Signaler.Instance.Subscribe<AssemblySignals.AssemblyCompleteSignal>(this, AssemblyCompleted);
         }
 
@@ -32,21 +29,24 @@ namespace NonVR
             Signaler.Instance.Broadcast(this, startLoopSignal);
             BroadcastUpdateLoops();
         }
-
-        private void CopyAndHideRootObject(GameObject objToCopy)
-        {
-            copiedObject = Instantiate(objToCopy, transform);
-            copiedObject.SetActive(false);
-        }
-
+        
         private bool AssemblyCompleted(AssemblySignals.AssemblyCompleteSignal signal)
         {
             if (currentLoop < numberOfLoops - 1)
             {
                 currentLoop++;
-                copiedObject.SetActive(true);
+                // Don't do this
+                foreach (Transform child in transform)
+                {
+                    if (child.name.Contains("Assembly Root"))
+                    {
+                        Destroy(child.gameObject);
+                    }
+                }
+                var newAssemblyRoot = Instantiate(prefabToLoop, transform);
+                newAssemblyRoot.transform.position = spawnPoint.position;
+                newAssemblyRoot.SetActive(true);
                 Signaler.Instance.Broadcast(this, startAssemblyLoopSignal);
-                CopyAndHideRootObject(copiedObject);
                 BroadcastUpdateLoops();
             }
             else

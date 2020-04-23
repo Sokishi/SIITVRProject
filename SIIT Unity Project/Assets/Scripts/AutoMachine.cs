@@ -23,8 +23,9 @@ public class AutoMachine : MonoBehaviour, IBroadcaster
         {
             currentTime -= Time.deltaTime; // tick down time
             updateTimeSignal.time = currentTime;
-            print(currentTime);
-            Signaler.Instance.Broadcast(this, updateTimeSignal);
+            
+            // TODO: Change this to ScriptableObject FloatReference
+            // Signaler.Instance.Broadcast(this, updateTimeSignal);
             
             if (currentTime < 0) 
             {

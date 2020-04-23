@@ -17,8 +17,6 @@ namespace NonVR
         
         private int currentRequirementIndex;
         private CarAssemblyPart[] parts;
-        // Wow don't do this
-        private GameObject copy;
         private readonly AssemblySignals.AssemblyCompleteSignal assemblyCompleteSignal =
             new AssemblySignals.AssemblyCompleteSignal();
         private MessageSubscription<AssemblySignals.AssembledPartSignal> assembledPartSignalSubscription;
