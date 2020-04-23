@@ -18,8 +18,11 @@ namespace NonVR
         private readonly AssemblySignals.StopAssemblyLoopSignal stopAssemblyLoopSignal =
             new AssemblySignals.StopAssemblyLoopSignal();
 
+        private AutoMachine autoMachine;
+        
         private void Awake()
         {
+            autoMachine = GetComponentInChildren<AutoMachine>();
             Signaler.Instance.Subscribe<AssemblySignals.AssemblyCompleteSignal>(this, AssemblyCompleted);
         }
 
@@ -46,6 +49,8 @@ namespace NonVR
                 var newAssemblyRoot = Instantiate(prefabToLoop, transform);
                 newAssemblyRoot.transform.position = spawnPoint.position;
                 newAssemblyRoot.SetActive(true);
+                var carAssembler = newAssemblyRoot.GetComponentInChildren<CarAssembler>();
+                carAssembler.autoMachine = autoMachine;
                 Signaler.Instance.Broadcast(this, startAssemblyLoopSignal);
                 BroadcastUpdateLoops();
             }

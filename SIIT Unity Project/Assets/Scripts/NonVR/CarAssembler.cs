@@ -11,14 +11,16 @@ namespace NonVR
     public class CarAssembler : MonoBehaviour, IBroadcaster, ISubscriber
     {
         [SerializeField] private List<CarAssemblyPart.PartType> requirements = new List<CarAssemblyPart.PartType>();
-        [SerializeField] private AutoMachine autoMachine;
+        public AutoMachine autoMachine;
 
         public bool AreAllPartsAssembled => IsEveryPartAssembled();
-        
+
         private int currentRequirementIndex;
         private CarAssemblyPart[] parts;
+
         private readonly AssemblySignals.AssemblyCompleteSignal assemblyCompleteSignal =
             new AssemblySignals.AssemblyCompleteSignal();
+
         private MessageSubscription<AssemblySignals.AssembledPartSignal> assembledPartSignalSubscription;
         private MessageSubscription<AssemblySignals.AutoMachineCompleted> autoMachineSignalSubscription;
         private CarAssemblyPart.PartType currentPartRequirement => requirements[currentRequirementIndex];
@@ -31,7 +33,7 @@ namespace NonVR
         }
 
         private AssemblyState currentState;
-        
+
         private void Awake()
         {
             currentState = AssemblyState.Assembling;
@@ -95,8 +97,10 @@ namespace NonVR
 
         private void UnSubscribeSignal()
         {
-            assembledPartSignalSubscription.UnSubscribe();
-            autoMachineSignalSubscription.UnSubscribe();
+            assembledPartSignalSubscription?.UnSubscribe();
+            autoMachineSignalSubscription?.UnSubscribe();
+            assembledPartSignalSubscription = null;
+            autoMachineSignalSubscription = null;
         }
 
         private bool AssembledPart(AssemblySignals.AssembledPartSignal signal)
@@ -141,6 +145,7 @@ namespace NonVR
                         if (childCollider == collider) continue;
                         childCollider.enabled = false;
                     }
+
                     break;
                 case AssemblyState.Completed:
                     AssemblyComplete();
