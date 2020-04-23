@@ -36,5 +36,14 @@ namespace Signals
             public int currentLoop;
             public int totalLoops;
         }
+
+        public struct AutoMachineCompleted
+        {
+        }
+
+        public struct UpdateAutoMachineProgressTime
+        {
+            public float time;
+        }
     }
 }
