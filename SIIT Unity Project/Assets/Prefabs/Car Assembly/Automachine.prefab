@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7b90b8963804d4fb3b5bc5d4c2dbad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsToComplete: 10
+  totalRequiredTime:
+    UseConstant: 1
+    ConstantValue: 5
+    Variable: {fileID: 0}
+  currentTime: {fileID: 11400000, guid: 657c2ca4251be471e972ef142bf6d5ab, type: 2}
 --- !u!65 &801663318814973666
 BoxCollider:
   m_ObjectHideFlags: 0

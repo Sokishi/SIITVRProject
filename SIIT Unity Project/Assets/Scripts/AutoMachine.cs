@@ -3,17 +3,20 @@ using echo17.Signaler.Core;
 using NonVR;
 using Signals;
 using UnityEngine;
+using Utilities;
 
 public class AutoMachine : MonoBehaviour, IBroadcaster
 {
-    [SerializeField] private int secondsToComplete = 10;
+    [SerializeField] private FloatReference totalRequiredTime;
+    [SerializeField] private FloatVariable currentTime;
+    
     
     private Transform partOnAutoMachine = null;
-    private float currentTime = 0f;
-    private AssemblySignals.UpdateAutoMachineProgressTime updateTimeSignal;
+    // private float currentTime = 0f;
     
     private void Awake()
     {
+        currentTime.SetValue(totalRequiredTime);
         enabled = false;
     }
 
@@ -21,13 +24,13 @@ public class AutoMachine : MonoBehaviour, IBroadcaster
     {
         if (partOnAutoMachine)
         {
-            currentTime -= Time.deltaTime; // tick down time
-            updateTimeSignal.time = currentTime;
-            
+            currentTime.ApplyChange(-Time.deltaTime);
+            // currentTime -= Time.deltaTime; // tick down time
+            print(currentTime.Value);
             // TODO: Change this to ScriptableObject FloatReference
             // Signaler.Instance.Broadcast(this, updateTimeSignal);
             
-            if (currentTime < 0) 
+            if (currentTime.Value < 0) 
             {
                 // Automachine has completed
                 partOnAutoMachine = null;
@@ -58,7 +61,7 @@ public class AutoMachine : MonoBehaviour, IBroadcaster
     {
         if (!IsOtherPartAutoMachinable(other)) return;
         partOnAutoMachine = other;
-        currentTime = secondsToComplete;
+        ResetTime();
     }
 
     private bool IsOtherPartAutoMachinable(Component other)
@@ -76,7 +79,7 @@ public class AutoMachine : MonoBehaviour, IBroadcaster
 
     private void ResetTime()
     {
-        currentTime = secondsToComplete;
-        Signaler.Instance.Broadcast(this, updateTimeSignal);
+        currentTime.SetValue(totalRequiredTime);
+        // currentTime = secondsToComplete;
     }
 }
