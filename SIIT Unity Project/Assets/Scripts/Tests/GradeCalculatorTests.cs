@@ -1,5 +1,6 @@
 ﻿using NonVR;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace Tests
 {
@@ -10,7 +11,9 @@ namespace Tests
         [SetUp]
         public void SetUp()
         {
-            gradeCalculator = new GradeCalculator(20, 2);
+            gradeCalculator = ScriptableObject.CreateInstance<GradeCalculator>();
+            gradeCalculator.secondsPerGradePenalty = 2;
+            gradeCalculator.timeForMaxGrade = 20;
         }
 
         [TearDown]
