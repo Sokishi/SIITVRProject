@@ -45,5 +45,14 @@ namespace Signals
         {
             public float time;
         }
+
+        public struct AllLoopsCompleted
+        {
+        }
+
+        public struct AchievedGradeSignal
+        {
+            public GradeCalculator.Grade Grade;
+        }
     }
 }

@@ -25,17 +25,14 @@ public class AutoMachine : MonoBehaviour, IBroadcaster
         if (partOnAutoMachine)
         {
             currentTime.ApplyChange(-Time.deltaTime);
-            // currentTime -= Time.deltaTime; // tick down time
-            print(currentTime.Value);
-            // TODO: Change this to ScriptableObject FloatReference
-            // Signaler.Instance.Broadcast(this, updateTimeSignal);
             
             if (currentTime.Value < 0) 
             {
-                // Automachine has completed
+                // AutoMachine has completed
                 partOnAutoMachine = null;
                 var signal = new AssemblySignals.AutoMachineCompleted();
                 Signaler.Instance.Broadcast(this, signal);
+                ResetTime();
             }
         }
     }

@@ -1,19 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using Utilities;
 
-public class UiUpdateAutoMachineTime : MonoBehaviour
+namespace Ui
 {
-    [SerializeField] private TMP_Text tmpText;
-    [SerializeField] private FloatVariable variable;
-
-    private const string autoMachineTimePrefix = "AutoMachine Time: ";
-
-    private void Update()
+    public class UiUpdateAutoMachineTime : MonoBehaviour
     {
-        if (tmpText == null || variable == null) return;
-        tmpText.text = autoMachineTimePrefix + variable.Value.ToString("F2");
+        [SerializeField] private TMP_Text tmpText;
+        [SerializeField] private FloatVariable variable;
+
+        private const string autoMachineTimePrefix = "AutoMachine Time: ";
+
+        private void Update()
+        {
+            if (tmpText == null || variable == null) return;
+            tmpText.text = autoMachineTimePrefix + variable.Value.ToString("F2");
+        }
     }
 }

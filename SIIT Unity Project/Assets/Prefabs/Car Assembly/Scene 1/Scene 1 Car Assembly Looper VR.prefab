@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80be993495a6644799f63ae5f82e8bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gradeCalculator: {fileID: 11400000, guid: ddbcf8d978be84668b8033f9b151e4fa, type: 2}
 --- !u!1 &2778659884183533130
 GameObject:
   m_ObjectHideFlags: 0

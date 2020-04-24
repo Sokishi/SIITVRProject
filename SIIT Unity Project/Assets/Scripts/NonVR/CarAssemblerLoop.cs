@@ -55,6 +55,7 @@ namespace NonVR
                 currentLoop++;
                 BroadcastUpdateLoops();
                 Signaler.Instance.Broadcast(this, stopAssemblyLoopSignal);
+                Signaler.Instance.Broadcast(this, new AssemblySignals.AllLoopsCompleted());
             }
 
             return true;
